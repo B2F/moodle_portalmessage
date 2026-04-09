@@ -17,6 +17,15 @@
 defined('MOODLE_INTERNAL') || die();
 
 $capabilities = [
+    'block/portalmessage:myaddinstance' => [
+        'captype' => 'write',
+        'contextlevel' => CONTEXT_SYSTEM,
+        'archetypes' => [
+            'user' => CAP_ALLOW,
+        ],
+        'clonepermissionsfrom' => 'moodle/my:manageblocks',
+    ],
+
     'block/portalmessage:addinstance' => [
         'captype' => 'write',
         'contextlevel' => CONTEXT_BLOCK,

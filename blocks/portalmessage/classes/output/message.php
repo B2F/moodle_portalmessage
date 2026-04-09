@@ -25,13 +25,18 @@ class message implements \renderable, \templatable {
     /** @var string */
     private $message;
 
+    /** @var string */
+    private $messagetype;
+
     /**
      * Constructor.
      *
      * @param string $message Portal message text.
+     * @param string $messagetype Message presentation type.
      */
-    public function __construct(string $message) {
+    public function __construct(string $message, string $messagetype = 'info') {
         $this->message = $message;
+        $this->messagetype = in_array($messagetype, ['info', 'warning']) ? $messagetype : 'info';
     }
 
     /**
@@ -41,8 +46,14 @@ class message implements \renderable, \templatable {
      * @return array
      */
     public function export_for_template(\renderer_base $output): array {
+        $iswarning = $this->messagetype === 'warning';
+
         return [
             'message' => $this->message,
+            'messagetype' => $this->messagetype,
+            'iswarning' => $iswarning,
+            'typeclass' => 'block-portalmessage--' . $this->messagetype,
+            'ariarole' => $iswarning ? 'alert' : 'status',
         ];
     }
 }
