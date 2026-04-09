@@ -16,9 +16,12 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version = 2025100603;
-$plugin->requires = 2025100600;
-$plugin->component = 'block_portalmessage';
-$plugin->dependencies = [
-    'local_portalmessage' => 2025100602,
+$functions = [
+    'block_portalmessage_dismiss_message' => [
+        'classname' => 'block_portalmessage\\external\\dismiss_message',
+        'methodname' => 'execute',
+        'description' => 'Dismiss the current portal message version for the current user.',
+        'type' => 'write',
+        'ajax' => true,
+    ],
 ];

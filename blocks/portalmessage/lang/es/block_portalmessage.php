@@ -14,11 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-defined('MOODLE_INTERNAL') || die();
-
-$plugin->version = 2025100603;
-$plugin->requires = 2025100600;
-$plugin->component = 'block_portalmessage';
-$plugin->dependencies = [
-    'local_portalmessage' => 2025100602,
-];
+$string['pluginname'] = 'Mensaje del portal';
+$string['dismissmessage'] = 'Descartar';
+$string['portalmessage:addinstance'] = 'Anadir un nuevo bloque de mensaje del portal';
+$string['portalmessage:myaddinstance'] = 'Anadir un nuevo bloque de mensaje del portal al Escritorio';

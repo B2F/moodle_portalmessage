@@ -25,6 +25,7 @@ $string['messagetype'] = 'Message type';
 $string['messagetype_desc'] = 'Choose the presentation style for the portal message.';
 $string['messagetype_info'] = 'Info';
 $string['messagetype_warning'] = 'Warning';
+$string['privacy:metadata:dismissedmessageversion'] = 'Stores the last portal message version dismissed by the user.';
 $string['portalmessage:viewmessage'] = 'View portal message block content';
 $string['targetcapability'] = 'Target capability';
 $string['targetcapability_desc'] = 'Only users with this capability can see the portal message.';

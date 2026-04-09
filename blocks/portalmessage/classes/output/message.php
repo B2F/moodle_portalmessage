@@ -28,15 +28,36 @@ class message implements \renderable, \templatable {
     /** @var string */
     private $messagetype;
 
+    /** @var int */
+    private $messageversion;
+
+    /** @var string */
+    private $containerid;
+
+    /** @var string */
+    private $dismisslabel;
+
     /**
      * Constructor.
      *
      * @param string $message Portal message text.
      * @param string $messagetype Message presentation type.
+     * @param int $messageversion Current message version.
+     * @param string $containerid DOM id used by AMD initialization.
+     * @param string $dismisslabel Localized dismiss button label.
      */
-    public function __construct(string $message, string $messagetype = 'info') {
+    public function __construct(
+        string $message,
+        string $messagetype = 'info',
+        int $messageversion = 1,
+        string $containerid = '',
+        string $dismisslabel = ''
+    ) {
         $this->message = $message;
         $this->messagetype = in_array($messagetype, ['info', 'warning']) ? $messagetype : 'info';
+        $this->messageversion = max(1, $messageversion);
+        $this->containerid = $containerid;
+        $this->dismisslabel = $dismisslabel;
     }
 
     /**
@@ -51,6 +72,9 @@ class message implements \renderable, \templatable {
         return [
             'message' => $this->message,
             'messagetype' => $this->messagetype,
+            'messageversion' => $this->messageversion,
+            'containerid' => $this->containerid,
+            'dismisslabel' => $this->dismisslabel,
             'iswarning' => $iswarning,
             'typeclass' => 'block-portalmessage--' . $this->messagetype,
             'ariarole' => $iswarning ? 'alert' : 'status',

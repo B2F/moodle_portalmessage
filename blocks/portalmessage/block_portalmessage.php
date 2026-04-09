@@ -29,6 +29,8 @@ class block_portalmessage extends block_base {
     }
 
     public function get_content() {
+        global $USER;
+
         if ($this->content !== null) {
             return $this->content;
         }
@@ -50,13 +52,28 @@ class block_portalmessage extends block_base {
             return null;
         }
 
+        $dismissalservice = new \local_portalmessage\service\dismissal();
+        $messageversion = max(1, (int) $configuration->messageversion);
+        if (isloggedin() && !isguestuser() && $dismissalservice->is_message_dismissed_for_user((int) $USER->id, $messageversion)) {
+            return null;
+        }
+
         $this->content = new stdClass();
         $this->content->text = '';
         $this->content->footer = '';
 
-        $renderable = new \block_portalmessage\output\message($configuration->message, $configuration->messagetype);
+        $containerid = 'block-portalmessage-message-' . $this->instance->id;
+
+        $renderable = new \block_portalmessage\output\message(
+            $configuration->message,
+            $configuration->messagetype,
+            $messageversion,
+            $containerid,
+            get_string('closebuttontitle', 'moodle')
+        );
         $renderer = $this->page->get_renderer('block_portalmessage');
         $this->content->text = $renderer->render_message($renderable);
+        $this->page->requires->js_call_amd('block_portalmessage/dismiss', 'init', [$containerid]);
 
         return $this->content;
     }

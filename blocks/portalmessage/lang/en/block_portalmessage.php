@@ -15,5 +15,6 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 $string['pluginname'] = 'Portal message';
+$string['dismissmessage'] = 'Dismiss';
 $string['portalmessage:addinstance'] = 'Add a new portal message block';
 $string['portalmessage:myaddinstance'] = 'Add a new portal message block to Dashboard';
