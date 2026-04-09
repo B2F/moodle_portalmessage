@@ -19,6 +19,7 @@ $string['enabled'] = 'Active';
 $string['enabled_desc'] = 'Affiche le bloc de message du portail lorsqu il est active.';
 $string['message'] = 'Texte du message';
 $string['message_desc'] = 'Le texte affiche dans la banniere du message du portail.';
+$string['message_multilang_desc'] = 'Pour du contenu multilingue, activez le filtre multilang et utilisez des balises comme <span lang="en" class="multilang">English text</span><span lang="fr" class="multilang">Texte francais</span>.';
 $string['messageversion'] = 'Version du message';
 $string['messageversion_desc'] = 'Incrementez cette valeur quand le contenu change pour reinitialiser les fermetures.';
 $string['messagetype'] = 'Type de message';

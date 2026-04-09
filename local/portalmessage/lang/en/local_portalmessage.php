@@ -19,6 +19,7 @@ $string['enabled'] = 'Enabled';
 $string['enabled_desc'] = 'Show the portal message block when enabled.';
 $string['message'] = 'Message text';
 $string['message_desc'] = 'The text shown in the portal message banner.';
+$string['message_multilang_desc'] = 'For multilingual content, enable the multilang filter and use spans like <span lang="en" class="multilang">English text</span><span lang="fr" class="multilang">Texte francais</span>.';
 $string['messageversion'] = 'Message version';
 $string['messageversion_desc'] = 'Increment this when the message content changes so dismissals are reset.';
 $string['messagetype'] = 'Message type';

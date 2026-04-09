@@ -68,9 +68,16 @@ class message implements \renderable, \templatable {
      */
     public function export_for_template(\renderer_base $output): array {
         $iswarning = $this->messagetype === 'warning';
+        $context = $output->page->context ?? \context_system::instance();
+        $formattedmessage = format_text($this->message, FORMAT_HTML, [
+            'context' => $context,
+            'filter' => true,
+            'para' => false,
+            'overflowdiv' => true,
+        ]);
 
         return [
-            'message' => $this->message,
+            'message' => $formattedmessage,
             'messagetype' => $this->messagetype,
             'messageversion' => $this->messageversion,
             'containerid' => $this->containerid,

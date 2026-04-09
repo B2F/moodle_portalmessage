@@ -19,6 +19,7 @@ $string['enabled'] = 'Activado';
 $string['enabled_desc'] = 'Muestra el bloque de mensaje del portal cuando esta activado.';
 $string['message'] = 'Texto del mensaje';
 $string['message_desc'] = 'El texto que se muestra en el aviso del portal.';
+$string['message_multilang_desc'] = 'Para contenido multilingue, activa el filtro multilang y usa etiquetas como <span lang="en" class="multilang">English text</span><span lang="fr" class="multilang">Texte francais</span>.';
 $string['messageversion'] = 'Version del mensaje';
 $string['messageversion_desc'] = 'Incrementa este valor cuando el contenido cambie para reiniciar descartes.';
 $string['messagetype'] = 'Tipo de mensaje';

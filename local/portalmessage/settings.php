@@ -30,7 +30,7 @@ if ($hassiteconfig) {
         $settings->add(new admin_setting_configtextarea(
             'local_portalmessage/message',
             get_string('message', 'local_portalmessage'),
-            get_string('message_desc', 'local_portalmessage'),
+            get_string('message_desc', 'local_portalmessage') . ' ' . get_string('message_multilang_desc', 'local_portalmessage'),
             ''
         ));
 
