@@ -22,7 +22,10 @@ class block_portalmessage extends block_base {
     }
 
     public function applicable_formats(): array {
-        return ['site' => true];
+        return [
+            'site' => true,
+            'my' => true,
+        ];
     }
 
     public function get_content() {
@@ -41,7 +44,13 @@ class block_portalmessage extends block_base {
             return $this->content;
         }
 
-        $renderable = new \block_portalmessage\output\message($configuration->message);
+        $targetcapability = trim((string) $configuration->targetcapability);
+        $context = $this->page->context ?? \context_system::instance();
+        if ($targetcapability !== '' && !has_capability($targetcapability, $context)) {
+            return $this->content;
+        }
+
+        $renderable = new \block_portalmessage\output\message($configuration->message, $configuration->messagetype);
         $renderer = $this->page->get_renderer('block_portalmessage');
         $this->content->text = $renderer->render_message($renderable);
 

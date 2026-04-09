@@ -16,6 +16,12 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version = 2025100601;
-$plugin->requires = 2025100600;
-$plugin->component = 'local_portalmessage';
+$capabilities = [
+    'local/portalmessage:viewmessage' => [
+        'captype' => 'read',
+        'contextlevel' => CONTEXT_SYSTEM,
+        'archetypes' => [
+            'manager' => CAP_ALLOW,
+        ],
+    ],
+];

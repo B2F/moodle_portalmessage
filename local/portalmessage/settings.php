@@ -45,12 +45,26 @@ if ($hassiteconfig) {
             ]
         ));
 
-        $settings->add(new admin_setting_configtext(
+        $commoncapabilities = [
+            'local/portalmessage:viewmessage' => get_string('targetcapability_portalmessageviewer', 'local_portalmessage'),
+            'moodle/site:config' => get_string('targetcapability_siteconfig', 'local_portalmessage'),
+            'moodle/site:manageblocks' => get_string('targetcapability_manageblocks', 'local_portalmessage'),
+            'moodle/course:update' => get_string('targetcapability_courseupdate', 'local_portalmessage'),
+            'moodle/course:view' => get_string('targetcapability_courseview', 'local_portalmessage'),
+        ];
+
+        $currenttargetcapability = (string) get_config('local_portalmessage', 'targetcapability');
+        if ($currenttargetcapability !== '' && !array_key_exists($currenttargetcapability, $commoncapabilities)) {
+            $commoncapabilities[$currenttargetcapability] =
+                get_string('targetcapability_custom', 'local_portalmessage', $currenttargetcapability);
+        }
+
+        $settings->add(new admin_setting_configselect(
             'local_portalmessage/targetcapability',
             get_string('targetcapability', 'local_portalmessage'),
             get_string('targetcapability_desc', 'local_portalmessage'),
             'moodle/site:config',
-            PARAM_RAW_TRIMMED
+            $commoncapabilities
         ));
 
         $settings->add(new admin_setting_configtext(
