@@ -33,22 +33,26 @@ class block_portalmessage extends block_base {
             return $this->content;
         }
 
-        $this->content = new stdClass();
-        $this->content->text = '';
-        $this->content->footer = '';
+        if (empty($this->instance)) {
+            return null;
+        }
 
         $configurationservice = new \local_portalmessage\service\configuration();
         $configuration = $configurationservice->get_configuration();
 
         if (!$configuration->enabled || trim($configuration->message) === '') {
-            return $this->content;
+            return null;
         }
 
         $targetcapability = trim((string) $configuration->targetcapability);
         $context = $this->page->context ?? \context_system::instance();
         if ($targetcapability !== '' && !has_capability($targetcapability, $context)) {
-            return $this->content;
+            return null;
         }
+
+        $this->content = new stdClass();
+        $this->content->text = '';
+        $this->content->footer = '';
 
         $renderable = new \block_portalmessage\output\message($configuration->message, $configuration->messagetype);
         $renderer = $this->page->get_renderer('block_portalmessage');
