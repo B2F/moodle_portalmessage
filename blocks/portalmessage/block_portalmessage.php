@@ -16,6 +16,8 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+require_once($CFG->dirroot . '/local/portalmessage/lib.php');
+
 use block_portalmessage\output\message;
 use local_portalmessage\service\configuration;
 use local_portalmessage\service\dismissal;
@@ -46,7 +48,8 @@ class block_portalmessage extends block_base {
         $configurationservice = new configuration();
         $configuration = $configurationservice->get_configuration();
 
-        if (!$configuration->enabled || trim($configuration->message) === '') {
+        $messagetext = local_portalmessage_get_current_language_message();
+        if (!$configuration->enabled || trim($messagetext) === '') {
             return null;
         }
 
@@ -69,7 +72,7 @@ class block_portalmessage extends block_base {
         $containerid = 'block-portalmessage-message-' . $this->instance->id;
 
         $renderable = new message(
-            $configuration->message,
+            $messagetext,
             $configuration->messagetype,
             $messageversion,
             $containerid,

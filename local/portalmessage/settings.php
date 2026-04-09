@@ -16,6 +16,10 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+require_once($CFG->dirroot . '/local/portalmessage/lib.php');
+
+use local_portalmessage\service\configuration;
+
 if ($hassiteconfig) {
     $settings = new admin_settingpage('local_portalmessage', get_string('pluginname', 'local_portalmessage'));
 
@@ -27,12 +31,67 @@ if ($hassiteconfig) {
             1
         ));
 
-        $settings->add(new admin_setting_configtextarea(
-            'local_portalmessage/message',
+        $configurationservice = new configuration();
+        $currentconfiguration = $configurationservice->get_configuration();
+        $currentmessages = $configurationservice->extract_multilang_messages((string) $currentconfiguration->message);
+
+        if (empty($currentmessages) && trim((string) $currentconfiguration->message) !== '') {
+            $currentmessages['en'] = (string) $currentconfiguration->message;
+        }
+
+        $settings->add(new admin_setting_heading(
+            'local_portalmessage/message_heading',
             get_string('message', 'local_portalmessage'),
-            get_string('message_desc', 'local_portalmessage') . ' ' . get_string('message_multilang_desc', 'local_portalmessage'),
-            ''
+            get_string('message_desc', 'local_portalmessage') . ' ' . get_string('message_multilang_desc', 'local_portalmessage')
         ));
+
+        $installedlanguages = local_portalmessage_get_installed_languages();
+
+        $activelanguage = strtolower((string) current_language());
+        if (!array_key_exists($activelanguage, $installedlanguages) && strpos($activelanguage, '_') !== false) {
+            $activelanguage = explode('_', $activelanguage)[0];
+        }
+        if (!array_key_exists($activelanguage, $installedlanguages)) {
+            $activelanguage = 'en';
+        }
+
+        $activelanguagename = $installedlanguages[$activelanguage] ?? strtoupper($activelanguage);
+
+        if (!array_key_exists('en', $installedlanguages)) {
+            $installedlanguages = ['en' => 'English'] + $installedlanguages;
+        }
+
+        $settings->add(new admin_setting_configcheckbox(
+            'local_portalmessage/showalllanguages',
+            get_string('showalllanguages', 'local_portalmessage'),
+            get_string('showalllanguages_desc', 'local_portalmessage', $activelanguagename),
+            0
+        ));
+
+        foreach ($installedlanguages as $languagecode => $languagename) {
+            $languagecode = strtolower((string) $languagecode);
+            $settingsuffix = local_portalmessage_language_setting_suffix($languagecode);
+            $settingname = 'local_portalmessage/message_' . $settingsuffix;
+            $shortsettingname = 'message_' . $settingsuffix;
+
+            if (!property_exists($currentconfiguration, $shortsettingname) && !empty($currentmessages[$languagecode])) {
+                set_config($shortsettingname, (string) $currentmessages[$languagecode], 'local_portalmessage');
+            }
+
+            $messagesetting = new admin_setting_confightmleditor(
+                $settingname,
+                get_string('message_language', 'local_portalmessage', $languagename),
+                get_string('message_lang_desc', 'local_portalmessage', $languagecode),
+                null,
+                PARAM_RAW
+            );
+            $messagesetting->set_updatedcallback('local_portalmessage_sync_multilang_message');
+            $settings->add($messagesetting);
+
+            if ($languagecode !== $activelanguage) {
+                $settings->hide_if($settingname, 'local_portalmessage/showalllanguages', 'notchecked', 1);
+            }
+        }
 
         $settings->add(new admin_setting_configselect(
             'local_portalmessage/messagetype',

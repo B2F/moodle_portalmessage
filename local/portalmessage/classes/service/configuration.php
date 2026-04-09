@@ -40,6 +40,57 @@ class configuration {
     }
 
     /**
+     * Build a multilang message value from per-language HTML content.
+     *
+     * @param array $messages Language code => HTML content.
+     * @return string
+     */
+    public function compose_multilang_message(array $messages): string {
+        $parts = [];
+
+        foreach ($messages as $language => $content) {
+            $language = trim((string) $language);
+            $content = trim((string) $content);
+
+            if ($language === '' || $content === '') {
+                continue;
+            }
+
+            $parts[] = '<span lang="' . s($language) . '" class="multilang">' . $content . '</span>';
+        }
+
+        return implode('', $parts);
+    }
+
+    /**
+     * Extract per-language values from a multilang message string.
+     *
+     * @param string $message
+     * @return array
+     */
+    public function extract_multilang_messages(string $message): array {
+        $result = [];
+        $matches = [];
+
+        preg_match_all(
+            '/<span(?=[^>]*\blang="([a-zA-Z0-9_-]+)")(?=[^>]*\bclass="multilang")[^>]*>(.*?)<\/span>/is',
+            $message,
+            $matches,
+            PREG_SET_ORDER
+        );
+
+        foreach ($matches as $match) {
+            if (empty($match[1])) {
+                continue;
+            }
+
+            $result[strtolower((string) $match[1])] = trim((string) ($match[2] ?? ''));
+        }
+
+        return $result;
+    }
+
+    /**
      * Decide whether a newly submitted configuration requires a version bump.
      *
      * @param object $currentconfiguration The stored configuration.

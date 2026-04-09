@@ -57,4 +57,30 @@ final class configuration_test extends \advanced_testcase {
         $this->assertSame(2, $service->next_message_version($current, $unchanged));
         $this->assertSame(3, $service->next_message_version($current, $changed));
     }
+
+    public function test_compose_multilang_message_creates_adjacent_lang_spans(): void {
+        $service = new configuration();
+
+        $actual = $service->compose_multilang_message([
+            'en' => '<p>English</p>',
+            'fr' => '<p>Francais</p>',
+            'es' => '',
+        ]);
+
+        $this->assertStringContainsString('<span lang="en" class="multilang"><p>English</p></span>', $actual);
+        $this->assertStringContainsString('<span lang="fr" class="multilang"><p>Francais</p></span>', $actual);
+        $this->assertStringNotContainsString('lang="es"', $actual);
+    }
+
+    public function test_extract_multilang_messages_returns_per_language_content(): void {
+        $service = new configuration();
+
+        $message = '<span lang="en" class="multilang">English</span>' .
+            '<span class="multilang" lang="fr">Francais</span>';
+
+        $actual = $service->extract_multilang_messages($message);
+
+        $this->assertSame('English', $actual['en']);
+        $this->assertSame('Francais', $actual['fr']);
+    }
 }

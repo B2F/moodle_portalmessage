@@ -1,0 +1,28 @@
+/*
+ * Styles for the portal message block.
+ *
+ * Moodle automatically loads plugin-level styles.css files.
+ */
+
+.block-portalmessage.block-portalmessage--warning {
+    padding: .75rem 1rem;
+    border: 1px solid #ffeeba;
+    border-left: .25rem solid #f0ad4e;
+    border-radius: .25rem;
+    background-color: #fff3cd;
+    color: #664d03;
+}
+
+.block-portalmessage.block-portalmessage--warning a {
+    color: inherit;
+    text-decoration: underline;
+}
+
+.block-portalmessage.block-portalmessage--warning .block-portalmessage__dismiss {
+    color: inherit;
+}
+
+.block-portalmessage.block-portalmessage--warning .block-portalmessage__dismiss:hover,
+.block-portalmessage.block-portalmessage--warning .block-portalmessage__dismiss:focus {
+    text-decoration: underline;
+}

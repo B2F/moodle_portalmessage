@@ -16,9 +16,9 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version = 2025100603;
+$plugin->version = 2025100604;
 $plugin->requires = 2025100600;
 $plugin->component = 'block_portalmessage';
 $plugin->dependencies = [
-    'local_portalmessage' => 2025100602,
+    'local_portalmessage' => 2025100604,
 ];
