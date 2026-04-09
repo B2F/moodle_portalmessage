@@ -20,7 +20,7 @@ Feature: Portal message dismissal and re-display flow
     Given I log in as "admin"
     Then "Portal message" "block" should exist
     And I should see "Portal update for all users." in the "Portal message" "block"
-    When I click on "Dismiss" "button" in the "Portal message" "block"
+    When I click on "Close" "button" in the "Portal message" "block"
     Then "Portal message" "block" should not exist
     And the following config values are set as admin:
       | config         | value | plugin              |

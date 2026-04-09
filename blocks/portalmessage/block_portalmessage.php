@@ -16,6 +16,10 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+use block_portalmessage\output\message;
+use local_portalmessage\service\configuration;
+use local_portalmessage\service\dismissal;
+
 class block_portalmessage extends block_base {
     public function init(): void {
         $this->title = get_string('pluginname', 'block_portalmessage');
@@ -39,7 +43,7 @@ class block_portalmessage extends block_base {
             return null;
         }
 
-        $configurationservice = new \local_portalmessage\service\configuration();
+        $configurationservice = new configuration();
         $configuration = $configurationservice->get_configuration();
 
         if (!$configuration->enabled || trim($configuration->message) === '') {
@@ -52,7 +56,7 @@ class block_portalmessage extends block_base {
             return null;
         }
 
-        $dismissalservice = new \local_portalmessage\service\dismissal();
+        $dismissalservice = new dismissal();
         $messageversion = max(1, (int) $configuration->messageversion);
         if (isloggedin() && !isguestuser() && $dismissalservice->is_message_dismissed_for_user((int) $USER->id, $messageversion)) {
             return null;
@@ -64,7 +68,7 @@ class block_portalmessage extends block_base {
 
         $containerid = 'block-portalmessage-message-' . $this->instance->id;
 
-        $renderable = new \block_portalmessage\output\message(
+        $renderable = new message(
             $configuration->message,
             $configuration->messagetype,
             $messageversion,
