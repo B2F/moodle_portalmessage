@@ -53,7 +53,12 @@ define(['core/ajax', 'core/notification'], function(Ajax, Notification) {
 
             dismissMessageVersion(messageVersion)
                 .then(() => {
-                    root.remove();
+                    const blockContainer = root.closest('.block');
+                    if (blockContainer) {
+                        blockContainer.remove();
+                    } else {
+                        root.remove();
+                    }
                     return null;
                 })
                 .catch(Notification.exception);
