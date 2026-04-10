@@ -16,10 +16,12 @@
 
 namespace local_portalmessage\service;
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Service for portal message dismissal user preference handling.
+ *
+ * @package   local_portalmessage
+ * @copyright 2026
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class dismissal {
     /** @var string User preference key for dismissed portal message version. */

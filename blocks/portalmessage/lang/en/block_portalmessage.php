@@ -14,7 +14,15 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-$string['pluginname'] = 'Portal message';
+/**
+ * Strings for component 'block_portalmessage', language 'en'.
+ *
+ * @package   block_portalmessage
+ * @copyright 2026
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
 $string['dismissmessage'] = 'Dismiss';
+$string['pluginname'] = 'Portal message';
 $string['portalmessage:addinstance'] = 'Add a new portal message block';
 $string['portalmessage:myaddinstance'] = 'Add a new portal message block to Dashboard';

@@ -16,13 +16,14 @@
 
 namespace local_portalmessage\service;
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Tests for portal message dismissal preference behavior.
  *
  * @package     local_portalmessage
  * @category    test
+ * @copyright   2026
+ * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @coversNothing
  */
 final class dismissal_test extends \advanced_testcase {
     public function test_dismissed_message_version_is_persisted_for_user(): void {

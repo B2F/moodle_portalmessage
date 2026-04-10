@@ -20,10 +20,12 @@ use core_privacy\local\metadata\collection;
 use core_privacy\local\request\writer;
 use local_portalmessage\service\dismissal;
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Privacy provider for portal message dismissal preference data.
+ *
+ * @package   local_portalmessage
+ * @copyright 2026
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class provider implements \core_privacy\local\metadata\provider, \core_privacy\local\request\user_preference_provider {
     /**
@@ -55,7 +57,7 @@ class provider implements \core_privacy\local\metadata\provider, \core_privacy\l
         writer::export_user_preference(
             'local_portalmessage',
             dismissal::PREFERENCE_KEY,
-            (int) $dismissedversion,
+            (string) ((int) $dismissedversion),
             get_string('privacy:metadata:dismissedmessageversion', 'local_portalmessage')
         );
     }

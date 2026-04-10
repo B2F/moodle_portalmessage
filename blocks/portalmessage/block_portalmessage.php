@@ -22,11 +22,26 @@ use block_portalmessage\output\message;
 use local_portalmessage\service\configuration;
 use local_portalmessage\service\dismissal;
 
+/**
+ * Portal message block implementation.
+ *
+ * @package   block_portalmessage
+ * @copyright 2026
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 class block_portalmessage extends block_base {
+    /**
+     * Initialise block title.
+     */
     public function init(): void {
         $this->title = get_string('pluginname', 'block_portalmessage');
     }
 
+    /**
+     * Restrict supported page formats.
+     *
+     * @return array
+     */
     public function applicable_formats(): array {
         return [
             'site' => true,
@@ -34,6 +49,11 @@ class block_portalmessage extends block_base {
         ];
     }
 
+    /**
+     * Build block content when portal message is visible.
+     *
+     * @return stdClass|null
+     */
     public function get_content() {
         global $USER;
 

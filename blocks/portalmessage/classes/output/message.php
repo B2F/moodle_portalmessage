@@ -16,10 +16,12 @@
 
 namespace block_portalmessage\output;
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Renderable for portal message block output.
+ *
+ * @package   block_portalmessage
+ * @copyright 2026
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class message implements \renderable, \templatable {
     /** @var string */
@@ -69,7 +71,7 @@ class message implements \renderable, \templatable {
     public function export_for_template(\renderer_base $output): array {
         $iswarning = $this->messagetype === 'warning';
         $context = $output->page->context ?? \context_system::instance();
-        $formattedmessage = format_text($this->message, FORMAT_HTML, [
+        $formattedmessage = format_text($this->message, (int) FORMAT_HTML, [
             'context' => $context,
             'filter' => true,
             'para' => false,

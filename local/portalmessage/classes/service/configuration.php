@@ -16,10 +16,12 @@
 
 namespace local_portalmessage\service;
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Reads portal message configuration and applies versioning rules.
+ *
+ * @package   local_portalmessage
+ * @copyright 2026
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class configuration {
     /**
@@ -84,7 +86,7 @@ class configuration {
                 continue;
             }
 
-            $result[strtolower((string) $match[1])] = trim((string) ($match[2] ?? ''));
+            $result[strtolower((string) $match[1])] = trim((string) $match[2]);
         }
 
         return $result;
@@ -129,7 +131,9 @@ class configuration {
             'enabled' => !empty($configuration->enabled) ? 1 : 0,
             'message' => isset($configuration->message) ? trim((string) $configuration->message) : '',
             'messagetype' => isset($configuration->messagetype) ? (string) $configuration->messagetype : 'info',
-            'targetcapability' => isset($configuration->targetcapability) ? trim((string) $configuration->targetcapability) : 'moodle/site:config',
+            'targetcapability' => isset($configuration->targetcapability)
+                ? trim((string) $configuration->targetcapability)
+                : 'moodle/site:config',
         ]);
     }
 }

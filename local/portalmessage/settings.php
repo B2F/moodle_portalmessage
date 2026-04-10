@@ -14,6 +14,14 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ * Settings definitions for local_portalmessage.
+ *
+ * @package   local_portalmessage
+ * @copyright 2026
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
 defined('MOODLE_INTERNAL') || die();
 
 require_once($CFG->dirroot . '/local/portalmessage/lib.php');
@@ -42,7 +50,7 @@ if ($hassiteconfig) {
         $settings->add(new admin_setting_heading(
             'local_portalmessage/message_heading',
             get_string('message', 'local_portalmessage'),
-            get_string('message_desc', 'local_portalmessage') . ' ' . get_string('message_multilang_desc', 'local_portalmessage')
+            get_string('message_desc', 'local_portalmessage') . "\n\n" . get_string('message_multilang_desc', 'local_portalmessage')
         ));
 
         $installedlanguages = local_portalmessage_get_installed_languages();

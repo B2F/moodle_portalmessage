@@ -23,10 +23,12 @@ use core_external\external_value;
 use local_portalmessage\service\configuration;
 use local_portalmessage\service\dismissal;
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Web service for dismissing the portal message.
+ *
+ * @package   block_portalmessage
+ * @copyright 2026
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class dismiss_message extends external_api {
     /**

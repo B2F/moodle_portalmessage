@@ -17,6 +17,9 @@
 /**
  * Upgrade steps for local_portalmessage.
  *
+ * @package   local_portalmessage
+ * @copyright 2026
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @param int $oldversion
  * @return bool
  */

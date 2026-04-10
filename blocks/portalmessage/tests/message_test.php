@@ -16,13 +16,14 @@
 
 namespace block_portalmessage\output;
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Tests for portal message template export formatting.
  *
  * @package    block_portalmessage
  * @category   test
+ * @copyright  2026
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @coversNothing
  */
 final class message_test extends \advanced_testcase {
     public function test_plain_text_message_still_renders_after_formatting(): void {

@@ -16,10 +16,12 @@
 
 namespace block_portalmessage\output;
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Renderer for the portal message block.
+ *
+ * @package   block_portalmessage
+ * @copyright 2026
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class renderer extends \plugin_renderer_base {
     /**

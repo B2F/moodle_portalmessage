@@ -16,13 +16,14 @@
 
 namespace local_portalmessage\service;
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Tests for the portal message configuration service.
  *
  * @package     local_portalmessage
  * @category    test
+ * @copyright   2026
+ * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @coversNothing
  */
 final class configuration_test extends \advanced_testcase {
     public function test_version_changes_when_message_content_changes(): void {
