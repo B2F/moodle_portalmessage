@@ -84,4 +84,29 @@ final class configuration_test extends \advanced_testcase {
         $this->assertSame('English', $actual['en']);
         $this->assertSame('Francais', $actual['fr']);
     }
+
+    public function test_message_version_is_bumped_for_relevant_configuration_changes(): void {
+        $this->resetAfterTest();
+
+        set_config('enabled', 1, 'local_portalmessage');
+        set_config('message', 'Initial message', 'local_portalmessage');
+        set_config('messagetype', 'info', 'local_portalmessage');
+        set_config('targetcapability', 'moodle/site:config', 'local_portalmessage');
+        set_config('messageversion', 5, 'local_portalmessage');
+
+        \local_portalmessage_update_message_version_if_needed();
+        $this->assertSame(5, (int) get_config('local_portalmessage', 'messageversion'));
+
+        set_config('showalllanguages', 1, 'local_portalmessage');
+        \local_portalmessage_update_message_version_if_needed();
+        $this->assertSame(5, (int) get_config('local_portalmessage', 'messageversion'));
+
+        set_config('message', 'Updated message', 'local_portalmessage');
+        \local_portalmessage_update_message_version_if_needed();
+        $this->assertSame(6, (int) get_config('local_portalmessage', 'messageversion'));
+
+        set_config('targetcapability', 'moodle/site:manageblocks', 'local_portalmessage');
+        \local_portalmessage_update_message_version_if_needed();
+        $this->assertSame(7, (int) get_config('local_portalmessage', 'messageversion'));
+    }
 }

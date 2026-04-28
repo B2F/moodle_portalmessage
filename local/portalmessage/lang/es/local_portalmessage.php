@@ -37,6 +37,7 @@ $string['messagetype_desc'] = 'Elige el estilo de presentacion para el mensaje d
 $string['messagetype_info'] = 'Informacion';
 $string['messagetype_warning'] = 'Advertencia';
 $string['messageversion'] = 'Version del mensaje';
+$string['messageversion_cannotdowngrade'] = 'La version del mensaje no puede ser menor que el valor actual ({$a}).';
 $string['messageversion_desc'] = 'Incrementa este valor cuando el contenido cambie para reiniciar descartes.';
 $string['pluginname'] = 'Mensaje del portal';
 $string['portalmessage:viewmessage'] = 'Ver el contenido del bloque de mensaje del portal';

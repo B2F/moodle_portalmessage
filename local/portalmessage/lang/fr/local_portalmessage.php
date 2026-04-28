@@ -37,6 +37,7 @@ $string['messagetype_desc'] = 'Choisissez le style de presentation du message du
 $string['messagetype_info'] = 'Information';
 $string['messagetype_warning'] = 'Alerte';
 $string['messageversion'] = 'Version du message';
+$string['messageversion_cannotdowngrade'] = 'La version du message ne peut pas etre inferieure a la valeur actuelle ({$a}).';
 $string['messageversion_desc'] = 'Incrementez cette valeur quand le contenu change pour reinitialiser les fermetures.';
 $string['pluginname'] = 'Message du portail';
 $string['portalmessage:viewmessage'] = 'Voir le contenu du bloc de message du portail';

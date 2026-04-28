@@ -124,4 +124,34 @@ function local_portalmessage_sync_multilang_message(): void {
     $message = $service->compose_multilang_message($messages);
 
     set_config('message', $message, 'local_portalmessage');
+    local_portalmessage_update_message_version_if_needed();
+}
+
+/**
+ * Bump message version when effective message targeting changes.
+ */
+function local_portalmessage_update_message_version_if_needed(): void {
+    $service = new \local_portalmessage\service\configuration();
+    $currentconfiguration = $service->get_configuration();
+    $currentsignature = $service->configuration_signature($currentconfiguration);
+    $storedsignature = (string) get_config('local_portalmessage', 'versioningsignature');
+
+    if ($storedsignature === '') {
+        set_config('versioningsignature', $currentsignature, 'local_portalmessage');
+        return;
+    }
+
+    if ($storedsignature === $currentsignature) {
+        return;
+    }
+
+    set_config('messageversion', $currentconfiguration->messageversion + 1, 'local_portalmessage');
+    set_config('versioningsignature', $currentsignature, 'local_portalmessage');
+}
+
+/**
+ * Callback for settings that can affect message visibility/content.
+ */
+function local_portalmessage_handle_configuration_change(): void {
+    local_portalmessage_update_message_version_if_needed();
 }

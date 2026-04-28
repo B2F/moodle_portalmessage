@@ -121,6 +121,16 @@ class configuration {
     }
 
     /**
+     * Build a stable signature for configuration comparison.
+     *
+     * @param object $configuration The configuration to compare.
+     * @return string
+     */
+    public function configuration_signature(object $configuration): string {
+        return $this->signature($configuration);
+    }
+
+    /**
      * Build the comparison signature for versioning decisions.
      *
      * @param object $configuration The configuration to compare.

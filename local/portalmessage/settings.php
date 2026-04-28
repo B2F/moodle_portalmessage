@@ -27,17 +27,20 @@ defined('MOODLE_INTERNAL') || die();
 require_once($CFG->dirroot . '/local/portalmessage/lib.php');
 
 use local_portalmessage\service\configuration;
+use local_portalmessage\admin\setting\messageversion;
 
 if ($hassiteconfig) {
     $settings = new admin_settingpage('local_portalmessage', get_string('pluginname', 'local_portalmessage'));
 
     if ($ADMIN->fulltree) {
-        $settings->add(new admin_setting_configcheckbox(
+        $enabledsetting = new admin_setting_configcheckbox(
             'local_portalmessage/enabled',
             get_string('enabled', 'local_portalmessage'),
             get_string('enabled_desc', 'local_portalmessage'),
             1
-        ));
+        );
+        $enabledsetting->set_updatedcallback('local_portalmessage_handle_configuration_change');
+        $settings->add($enabledsetting);
 
         $configurationservice = new configuration();
         $currentconfiguration = $configurationservice->get_configuration();
@@ -101,7 +104,7 @@ if ($hassiteconfig) {
             }
         }
 
-        $settings->add(new admin_setting_configselect(
+        $messagetypesetting = new admin_setting_configselect(
             'local_portalmessage/messagetype',
             get_string('messagetype', 'local_portalmessage'),
             get_string('messagetype_desc', 'local_portalmessage'),
@@ -110,7 +113,9 @@ if ($hassiteconfig) {
                 'info' => get_string('messagetype_info', 'local_portalmessage'),
                 'warning' => get_string('messagetype_warning', 'local_portalmessage'),
             ]
-        ));
+        );
+        $messagetypesetting->set_updatedcallback('local_portalmessage_handle_configuration_change');
+        $settings->add($messagetypesetting);
 
         $commoncapabilities = [
             'local/portalmessage:viewmessage' => get_string('targetcapability_portalmessageviewer', 'local_portalmessage'),
@@ -126,15 +131,17 @@ if ($hassiteconfig) {
                 get_string('targetcapability_custom', 'local_portalmessage', $currenttargetcapability);
         }
 
-        $settings->add(new admin_setting_configselect(
+        $targetcapabilitysetting = new admin_setting_configselect(
             'local_portalmessage/targetcapability',
             get_string('targetcapability', 'local_portalmessage'),
             get_string('targetcapability_desc', 'local_portalmessage'),
             'moodle/site:config',
             $commoncapabilities
-        ));
+        );
+        $targetcapabilitysetting->set_updatedcallback('local_portalmessage_handle_configuration_change');
+        $settings->add($targetcapabilitysetting);
 
-        $settings->add(new admin_setting_configtext(
+        $settings->add(new messageversion(
             'local_portalmessage/messageversion',
             get_string('messageversion', 'local_portalmessage'),
             get_string('messageversion_desc', 'local_portalmessage'),

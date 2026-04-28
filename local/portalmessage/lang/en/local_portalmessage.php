@@ -37,6 +37,7 @@ $string['messagetype_desc'] = 'Choose the presentation style for the portal mess
 $string['messagetype_info'] = 'Info';
 $string['messagetype_warning'] = 'Warning';
 $string['messageversion'] = 'Message version';
+$string['messageversion_cannotdowngrade'] = 'Message version cannot be lower than current value ({$a}).';
 $string['messageversion_desc'] = 'Increment this when the message content changes so dismissals are reset.';
 $string['pluginname'] = 'Portal message';
 $string['portalmessage:viewmessage'] = 'View portal message block content';
